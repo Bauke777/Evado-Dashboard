@@ -1,0 +1,20 @@
+{
+  "devDependencies": {
+    "electron-builder": "^5.12.1",
+    "electron-prebuilt": "~1.2.X"
+  },
+  "build": {
+    "appId": "hr.creaticon.eatodo",
+    "app-category-type": "public.app-category.productivity",
+    "dmg": {},
+    "win": {
+      "iconUrl": "http://eatodo.s3.amazonaws.com/icon.ico"
+    }
+  },
+  "scripts": {
+    "postinstall": "install-app-deps",
+    "start": "electron ./app --enable-logging",
+    "dev": "NODE_ENV='development' npm run start",
+    "dist": "build -mwl --x64 --ia32"
+  }
+}

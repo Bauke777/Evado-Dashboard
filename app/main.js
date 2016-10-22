@@ -2,8 +2,6 @@ const {app, BrowserWindow} = require('electron')
 
 let mainWindow
 
-
-
 function createWindow () {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({width: 1200, height: 800, minHeight: 600, minWidth: 800, titleBarStyle: 'hidden-inset', backgroundColor: '#242931'})

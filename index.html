@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Envado Dashboard</title>
+		<!-- FONT
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+		<link href="assets/fonts/icomoon/icomoon.css" rel="stylesheet" type="text/css">
+
+		<!-- CSS
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<link rel="stylesheet" href="css/normalize.css">
+		<!-- <link rel="stylesheet" href="css/skeleton.css"> -->
+		<link rel="stylesheet" href="css/style.css">
+
+		<!-- JS
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<script type="text/javascript">window.$ = window.jQuery = require('./scripts/jquery.min.js');</script><!-- include jQuery -->
+		<script type="text/javascript">
+		$(document).ready(function() {
+
+			/* When DOM ready open first page from Main Navigation */
+			$('#content').load('pages/' + $('nav li a').first().attr('data-value') + '.html');
+			$('nav li a').first().addClass('active');
+
+			/* Main Navigation */
+			$('a').click(function(e) {
+				$('#content').load('pages/' + $(this).attr('data-value') + '.html');
+				e.preventDefault();
+				$('nav li a').removeClass('active');
+				$(this).addClass('active');
+			});
+
+			// Toggle .user-profile menu on click, and close when clicked anywhere else
+			$('li:has(ul)').click(function(e){
+				if ( $('.sub-menu').is(':visible') ) {
+					$('.sub-menu').slideUp('fast');
+					console.log('Close self and other sub-menu(s)');
+				} else {
+					$('ul',this).slideToggle('fast');
+					console.log('Toggle self');
+				}
+			});
+			// Close sub-menu if user clicks anywhere but a menu-item that has a sub-menu
+			$(document).click(function(e) {
+				if ( !$(e.target).is($('li:has(ul)')) && !$(e.target).is($('li:has(ul)').children()) ) {
+					$('.sub-menu').slideUp('fast');
+				}
+			});
+
+
+			/* Database connection */
+			var mysql      = require('mysql');
+			var connection = mysql.createConnection({
+				host     : 'baukeposthuma.nl',
+				user     : 'baukep1q_envado',
+				password : 'Schaatsen2!',
+				database : 'baukep1q_envado'
+			});
+
+			connection.connect();
+
+			connection.query('SELECT * FROM envado_users WHERE user_login = "baukeposthuma@me.com"', function (error, results, fields) {
+			  // error will be an Error if one occurred during the query
+			  // results will contain the results of the query
+			  // fields will contain information about the returned results fields (if any)
+			  console.log(results);
+			});
+
+			connection.end();
+
+		});
+   	</script>
+  	</head>
+  	<body>
+    	<header>
+			<div id="toolbar">
+				<ul>
+				 	<li class="toolbar-item notifications"><i class="icon-chat"><span class="counter">4</span></i>
+						<ul class="sub-menu">
+							<li>Berichten</li>
+							<li><a href="#"><strong>Anouk</strong><br>Ik heb een nieuwe transactie ontvangen van Dhr. Hoek...</a></li>
+							<li><a href="#"><strong>Anouk</strong><br>Ik heb een nieuwe transactie ontvangen van Dhr. Hoek...</a></li>
+							<li><a href="#"><strong>Anouk</strong><br>Ik heb een nieuwe transactie ontvangen van Dhr. Hoek...</a></li>
+							<li><a href="#"><strong>Anouk</strong><br>Ik heb een nieuwe transactie ontvangen van Dhr. Hoek...</a></li>
+	        			</ul>
+			  		</li>
+					<li class="toolbar-item notifications"><i class="icon-notification"><span class="counter">2</span></i>
+						<ul class="sub-menu">
+							<li>Notificaties</li>
+							<li><a href="#"><strong>Factuur</strong><br>Automatishe factuur met nr 102416 is verzonden naar...</a></li>
+							<li><a href="#"><strong>Factuur</strong><br>Automatishe factuur met nr 102516 is verzonden naar...</a></li>
+	        			</ul>
+			  		</li>
+					<li class="user-profile"><i class="icon-profile"></i><span>Bauke Posthuma</span><i class="icon-arrow-down"></i>
+						<ul class="sub-menu">
+							<li><a data-value="account"  href="#">Account</a></li>
+							<li><a data-value="settings" href="#">Instellingen</a></li>
+							<li><a href="#">Uitloggen</a></li>
+	        			</ul>
+			  		</li>
+			 	</ul>
+			</div>
+	 		<img id="logo" src="assets/images/logo.png">
+			<div id="searchbar_container">
+				<input id="searchbar" name="searchbar" placeholder="Zoeken" type="search"><label for="searchbar" class="icon-search"></label></li>
+			</div>
+ 		</header>
+	 	<nav id="main_navigation">
+		 	<ul>
+			 	<li><a data-value="dashboard" href="#"><i class="icon-dashboard"></i><span>Dashboard</span></a></li>
+			 	<li><a data-value="clients" href="#"><i class="icon-persons"></i><span>Clienten</a></span></li>
+			 	<li><a data-value="calendar" href="#"><i class="icon-calendar"></i><span>Agenda</a></span></li>
+		 		<li><a data-value="dbc" href="#"><i class="icon-notes"></i><span>DBC-gegevens</a></span></li>
+		 	</ul>
+	 	</nav>
+	 	<div id="content">
+	 	</div>
+  	</body>
+</html>

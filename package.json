@@ -1,20 +1,15 @@
 {
-  "devDependencies": {
-    "electron-builder": "^5.12.1",
-    "electron-prebuilt": "~1.2.X"
-  },
-  "build": {
-    "appId": "hr.creaticon.eatodo",
-    "app-category-type": "public.app-category.productivity",
-    "dmg": {},
-    "win": {
-      "iconUrl": "http://eatodo.s3.amazonaws.com/icon.ico"
-    }
-  },
-  "scripts": {
-    "postinstall": "install-app-deps",
-    "start": "electron ./app --enable-logging",
-    "dev": "NODE_ENV='development' npm run start",
-    "dist": "build -mwl --x64 --ia32"
-  }
+	"name": "evado",
+	"version": "0.1.0",
+	"description": "Dashboard for test purpose",
+	"author": "Bauke Posthuma <baukeposthuma@gmail.com>",
+	"license": "ISC",
+	"main": "main.js",
+	"dependencies": {
+		"electron": "^1.8.2",
+		"mysql": "~2.3.2"
+	},
+	"scripts": {
+		"start": "electron main.js"
+	}
 }
